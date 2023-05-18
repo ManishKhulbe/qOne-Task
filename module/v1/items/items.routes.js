@@ -23,11 +23,8 @@ router
   router
   .route("/getItem")
   .get( function (req, res) {
-    let { state , name } = req.body;
     itemsController
-      .getItem({
-        state , name
-      })
+      .getItem()
       .then(function (result) {
         resHndlr.sendSuccess(res, result, req);
       })

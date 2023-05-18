@@ -26,6 +26,7 @@
 
 let JwtStrategy = require("passport-jwt").Strategy;
 let ExtractJwt = require("passport-jwt").ExtractJwt;
+const { ObjectId } = require("mongodb");
 let User = require("../module/v1/userLogin/userModal");
 
 
@@ -33,14 +34,14 @@ module.exports = function (passport) {
     passport.use(
         new JwtStrategy(
             {
-                secretOrKey : process.env.secretOrKey,
+                secretOrKey : process.env.JWT_SECRET,
                 jwtFromRequest : ExtractJwt.fromAuthHeaderAsBearerToken()
             },
             function (jwtPayload, done) {
                 if(!jwtPayload){
                     return done(null, false);
                 }
-                return User.findOne({ _id: jwtPayload.userID })
+                return User.findOne({ _id: new ObjectId(jwtPayload.userID)  })
                     .then((user) => {
                         return done(null, user);
                     })

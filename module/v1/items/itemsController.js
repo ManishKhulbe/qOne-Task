@@ -10,7 +10,12 @@ const addItem = async (params) => {
     if(itemExists){
         throw customException.itemAlreadyExists();
     }
-    const addItem = await Item.save(params);
+    let userObj={
+      name:params.name,
+      state:params.state,
+      itemAddedBy:params.userId
+    }
+    const addItem = await Item.save(userObj);
     if (!addItem) {
       throw customException.itemNotAdded();
     }

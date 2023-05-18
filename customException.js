@@ -12,7 +12,8 @@ const constants = {
     ITEM_NOT_FOUND:"Items Not Found",
     ITEM_NAME_ALREADY_EXISTS:"Item name already exists",
     ITEM_NOT_EDITED:"Unable to edit item at this time",
-    UNABLE_TO_DELETE_ITEM:"Unable to delete item at this time"
+    UNABLE_TO_DELETE_ITEM:"Unable to delete item at this time",
+    UNAUTHORIZED_ACCESS:"Unauthorized access",
 
   },
 };
@@ -47,5 +48,8 @@ module.exports = {
   },
   unableToDeleteItem : function () {
     return new Exception(10, constants.MESSAGES.UNABLE_TO_DELETE_ITEM);
+  },
+  unauthorizedUser : function () {
+    return new Exception(11, constants.MESSAGES.UNAUTHORIZED_ACCESS);
   }
 };

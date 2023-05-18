@@ -8,9 +8,10 @@ router
   .route("/addItem")
   .post(itemsValidator.validateItem, function (req, res) {
     let { state , name } = req.body;
+    let { userId:_id } = req.user;
     itemsController
       .addItem({
-        state , name
+        state , name , userId
       })
       .then(function (result) {
         resHndlr.sendSuccess(res, result, req);

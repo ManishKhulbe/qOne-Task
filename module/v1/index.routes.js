@@ -3,11 +3,11 @@ const experess = require("express");
 
 const router = experess.Router();
 
-const userRoutes = require("./items/items.routes");
+const itemsRoutes = require("./items/items.routes");
 const logInRoutes = require("./userLogin/userLogin.routes");
 
 
-router.use("/user", userRoutes);
+router.use("/items", itemsRoutes);
 router.use("/login", logInRoutes);
 
 

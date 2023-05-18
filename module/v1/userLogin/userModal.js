@@ -1,4 +1,4 @@
-const { createModal } = require("../../../db");
-const User = createModal('user');
+const { dbConnection } = require("../../../db");
+const User = dbConnection.createModal('user');
 module.exports = User;
 

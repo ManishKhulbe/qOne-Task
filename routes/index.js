@@ -1,5 +1,4 @@
 
-// const basicAuth = require('../middleware/basicAuth');
 const v1Route = require('../module/v1/index.routes');
 const responseHandler = require('../responseHandler');
 

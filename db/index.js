@@ -9,32 +9,59 @@ const BaseDao = require("./baseDao");
 //connect to mongodb
 
 
-async function connectToMongo(){
-  try {
-    await client.connect();
-    console.log("Connected to MongoDB");
-    return client.db(dbName);
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
-};
+class dbConnection{
+  constructor(){}
+  db=null;
+  createModal=null;
 
-async function createModal(collectionName){
-  try {
-    const db = await connectToMongo();
-    const modal =  new BaseDao(collectionName, db);
-    // let user = await modal.find().toArray();
-    // console.log("🚀 ~ file: index.js:27 ~ createModal ~ modal:", user)
-    return modal;
-  } catch (error) {
-    console.error(error);
-    return null;
+ static async connect(){
+    try {
+      await client.connect();
+      console.log("Connected to MongoDB");
+      this.db = client.db(dbName);
+      return this.db;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  }
+
+  static createModal(collectionName){
+    try {
+      let modal =  new BaseDao(collectionName, this.db);
+      return modal;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
   }
 }
 
+// async function connectToMongo(){
+//   try {
+//     await client.connect();
+//     console.log("Connected to MongoDB");
+//     return client.db(dbName);
+//   } catch (error) {
+//     console.error(error);
+//     return null;
+//   }
+// };
+
+// async function createModal(collectionName){
+//   try {
+//     const db = await connectToMongo();
+//     const modal =  new BaseDao(collectionName, db);
+//     // let user = await modal.find().toArray();
+//     // console.log("🚀 ~ file: index.js:27 ~ createModal ~ modal:", user)
+//     return modal;
+//   } catch (error) {
+//     console.error(error);
+//     return null;
+//   }
+// }
+
 module.exports={
-    connectToMongo,
-    createModal
+  dbConnection
 }
 

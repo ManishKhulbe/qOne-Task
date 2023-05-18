@@ -1,3 +1,3 @@
-const { dbClient } = require("../../../db/index");
-const User = dbClient.model('users');
+const { createModal } = require("../../../db");
+const User = createModal('user');
 module.exports = { User: User };

@@ -16,6 +16,6 @@ module.exports = {
     return new Exception(2, constants.MESSAGES.UNAUTHORIZED_ACCESS);
   },
   getCustomErrorException: function (err) {
-   return  new Exception(3, constants.MESSAGES.validationError, err);
+   return new Exception(3, constants.MESSAGES.validationError, err);
   }
 };

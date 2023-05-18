@@ -5,19 +5,19 @@ const resHndlr = require("../../../responseHandler");
 
 router
   .route("/userLogin")
-  .post([loginValidator.validateLogIn], function (req, res) {
-    let { userName, password } = req.body;
+  .post(loginValidator.validateLogIn, function (req, res) {
+
+    let { username, password } = req.body;
 
     loginController
       .login({
-        userName,
+        username,
         password,
       })
       .then(function (result) {
         resHndlr.sendSuccess(res, result, req);
       })
       .catch(function (err) {
-        console.log("🚀 ~ file: userLogin.routes.js:20 ~ err:", err)
         resHndlr.sendError(res, err, req);
       });
   });

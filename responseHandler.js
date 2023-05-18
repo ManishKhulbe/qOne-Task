@@ -15,8 +15,6 @@ function _sendResponse(response, result) {
 }
 
 function sendError(response, error,request , STATUS_CODE = constant.STATUS_CODE.ERROR) {
-    console.log("🚀 ~ file: responseHandler.js:18 ~ sendError ~ error:", error)
-    
     if (!error.errorCode) {
         console.error(error, "Unhandled error.");
         error = customException.internalServerErr(error);

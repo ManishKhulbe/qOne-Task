@@ -3,7 +3,7 @@ const exceptions = require("../../../customException");
 
 const validateLogIn = async (req, res, next) => {
     const v = new Validator(req.body, {
-    userame: "required|string",
+    username: "required|string",
     password: "required",
   });
 
@@ -11,10 +11,17 @@ const validateLogIn = async (req, res, next) => {
   if (!matched) {
     const errors = v.errors;
     console.log("Validation errors:", errors);
-    next(exceptions.getCustomErrorException(errors));
+    validationError(errors, next)
   }
   next();
 };
+
+const  validationError = function (errors, next) {
+  if (errors && Object.keys(errors).length > 0) {
+    return next(exceptions.getCustomErrorException(errors));
+  }
+  next();
+}
 
 module.exports = {
   validateLogIn,

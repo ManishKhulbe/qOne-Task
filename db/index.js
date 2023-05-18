@@ -24,8 +24,8 @@ async function createModal(collectionName){
   try {
     const db = await connectToMongo();
     const modal =  new BaseDao(collectionName, db);
-    let user = await modal.find().toArray();
-    console.log("🚀 ~ file: index.js:27 ~ createModal ~ modal:", user)
+    // let user = await modal.find().toArray();
+    // console.log("🚀 ~ file: index.js:27 ~ createModal ~ modal:", user)
     return modal;
   } catch (error) {
     console.error(error);

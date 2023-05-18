@@ -44,9 +44,51 @@ const getItemById= async (params) => {
     }
   };
 
+const editItem= async (params)=>{
+  try {
+    const isItemExists = await Item.findOne({_id : new ObjectId(params.itemId)})
+    if(!isItemExists){
+        throw customException.noItemFound();
+    }
+    const checkUniqueName = await Item.findOne({name:params.name ,  
+      _id: { $ne: new ObjectId(params.itemId) }})
+    if(checkUniqueName){
+        throw customException.itemNameAlreadyExists();
+    }
+    let update ={}
+    if(params.name){
+      update.name = params.name
+    }
+    if(params.state){
+      update.state = params.state
+    }
+    const editItem = await Item.findOneAndUpdate({_id : new ObjectId(params.itemId)} , {$set : update} , {new : true})
+    if (!editItem) {
+      throw customException.itemNotEdited();
+    }
+    return itemsMapper.editItemMapping(editItem);
+    
+  } catch (err) {
+    throw err;
+  }
+}
+
+const deleteItem= async (params) => {
+  try {
+    const deleteItem = await Item.findOneAndDelete({_id : new ObjectId(params.itemId)})
+    if(!deleteItem){
+        throw customException.unableToDeleteItem();
+    }
+    return itemsMapper.deleteItemMapping(deleteItem);
+  } catch (err) {
+    throw err;
+  }
+};
 
 module.exports = {
   addItem,
   getItem,
-  getItemById
+  getItemById,
+  editItem,
+  deleteItem
 };

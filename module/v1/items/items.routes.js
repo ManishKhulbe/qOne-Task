@@ -6,7 +6,7 @@ const resHndlr = require("../../../responseHandler");
 
 router
   .route("/addItem")
-  .post(itemsValidator.validateAddItem, function (req, res) {
+  .post(itemsValidator.validateItem, function (req, res) {
     let { state , name } = req.body;
     itemsController
       .addItem({
@@ -43,6 +43,39 @@ router
     itemsController
       .getItemById({
         itemId
+      })
+      .then(function (result) {
+        resHndlr.sendSuccess(res, result, req);
+      })
+      .catch(function (err) {
+        resHndlr.sendError(res, err, req);
+      });
+  });
+
+  router
+  .route("/editItem")
+  .put(itemsValidator.validateItem, function (req, res) {
+    let { name , state } = req.body;
+    let { itemId} = req.query;
+    itemsController
+      .editItem({
+        name , state ,itemId
+      })
+      .then(function (result) {
+        resHndlr.sendSuccess(res, result, req);
+      })
+      .catch(function (err) {
+        resHndlr.sendError(res, err, req);
+      });
+  });
+
+  router
+  .route("/deleteItem")
+  .put( function (req, res) {
+    let { itemId} = req.query;
+    itemsController
+      .deleteItem({
+      itemId
       })
       .then(function (result) {
         resHndlr.sendSuccess(res, result, req);

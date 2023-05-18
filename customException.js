@@ -9,7 +9,11 @@ const constants = {
     PASSWORD_NOT_MATCH : "Password not match",
     ITEM_NOT_ADDED : 'Unable to add item at this time',
     ITEM_ALREADY_EXISTS:'Item already exists',
-    ITEM_NOT_FOUND:"Items Not Found"
+    ITEM_NOT_FOUND:"Items Not Found",
+    ITEM_NAME_ALREADY_EXISTS:"Item name already exists",
+    ITEM_NOT_EDITED:"Unable to edit item at this time",
+    UNABLE_TO_DELETE_ITEM:"Unable to delete item at this time"
+
   },
 };
 
@@ -17,8 +21,8 @@ module.exports = {
   internalServerErr: function (err) {
     return new Exception(1, constants.MESSAGES.INTERNAL_SERVER_ERROR, err);
   },
-  unauthorizeAccess: function () {
-    return new Exception(2, constants.MESSAGES.UNAUTHORIZED_ACCESS);
+  itemNotEdited: function () {
+    return new Exception(2, constants.MESSAGES.ITEM_NOT_EDITED);
   },
   getCustomErrorException: function (err) {
    return new Exception(3, constants.MESSAGES.validationError, err);
@@ -38,4 +42,10 @@ module.exports = {
   noItemFound : function () {
     return new Exception(8, constants.MESSAGES.ITEM_NOT_FOUND);
   },
+  itemNameAlreadyExists : function () {
+    return new Exception(9, constants.MESSAGES.ITEM_NAME_ALREADY_EXISTS);
+  },
+  unableToDeleteItem : function () {
+    return new Exception(10, constants.MESSAGES.UNABLE_TO_DELETE_ITEM);
+  }
 };

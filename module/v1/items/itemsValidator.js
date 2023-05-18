@@ -1,11 +1,11 @@
 
 const { Validator } = require("node-input-validator");
 const exceptions = require("../../../customException");
-
-const validateAddItem = async (req, res, next) => {
+const constants = require("../../../constant");
+const validateItem = async (req, res, next) => {
     const v = new Validator(req.body, {
     name: "required|string",
-    state: "required",
+    state: `required|in:${constants.state.join(",")}`,
   });
 
   const matched = await v.check();
@@ -25,5 +25,5 @@ const  validationError = function (errors, next) {
 }
 
 module.exports = {
-    validateAddItem,
+    validateItem,
 };

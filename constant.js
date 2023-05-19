@@ -15,7 +15,14 @@ const constants = {
     UNABLE_TO_DELETE_ITEM: "Unable to delete item at this time",
     UNAUTHORIZED_ACCESS: "Unauthorized access",
   },
-  
+
+  CONFIG: {
+    PORT: 3001,
+    MONGO_URI:
+      "mongodb+srv://root:toor@cluster0.bxumy.mongodb.net/qOne?retryWrites=true&w=majority",
+    DB_NAME: "qOne",
+    JWT_SECRET: "secret12345678hudhuhf",
+  },
 };
 
 module.exports = {

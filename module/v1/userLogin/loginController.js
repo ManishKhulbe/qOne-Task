@@ -3,9 +3,10 @@ const passport = require("passport");
 const User = require("./userModal");
 const customException = require("../../../customException");
 const logInMapper = require("./loginMapper");
-
+const constant = require("../../../constant");
+const {CONFIG}= constant.constants
 const createJsonToken = (user) => {
-  const token = jwt.sign(user, process.env.JWT_SECRET);
+  const token = jwt.sign(user, CONFIG.JWT_SECRET);
   return token;
 }
 

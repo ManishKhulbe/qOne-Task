@@ -1,6 +1,6 @@
 const express = require("express");
-const passport = require("passport");
-require("dotenv").config();
+const constant = require("./constant");
+const {CONFIG}= constant.constants
 
 //db Connection (mongodb)
 const {dbConnection} = require("./db/index");
@@ -20,7 +20,7 @@ dbConnection.connect().then((db) => {
 
   require("./routes/index")(app);
 
-  app.listen(process.env.PORT || 3001, () => {
-    console.log(`Server is running on port ${process.env.PORT || 3001}`);
+  app.listen(CONFIG.PORT || 3001, () => {
+    console.log(`Server is running on port ${CONFIG.PORT || 3001}`);
   });
 });

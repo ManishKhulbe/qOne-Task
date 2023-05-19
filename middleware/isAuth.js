@@ -3,12 +3,14 @@ let ExtractJwt = require("passport-jwt").ExtractJwt;
 const { ObjectId } = require("mongodb");
 let User = require("../module/v1/userLogin/userModal");
 const customException = require("../customException");
+const constant = require("../constant");
+const {CONFIG}= constant.constants
 
 module.exports = function (passport) {
   passport.use(
     new JwtStrategy(
       {
-        secretOrKey: process.env.JWT_SECRET,
+        secretOrKey: CONFIG.JWT_SECRET,
         jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken({
           failMessage: "No token provided",
         }),

@@ -10,7 +10,10 @@ const constant={
 }
      
 
-function _sendResponse(response, result) {
+function _sendResponse(response, result,STATUS_CODE) {
+    if(STATUS_CODE){
+        return response.status(STATUS_CODE).send(result);
+    }
     return response.send(result);
 }
 
@@ -20,7 +23,7 @@ function sendError(response, error,request , STATUS_CODE = constant.STATUS_CODE.
         error = customException.internalServerErr(error);
     }
     var result = new APIResponse(STATUS_CODE, error,request);
-    _sendResponse(response, result);
+    _sendResponse(response, result ,STATUS_CODE);
 }
 
 function handleError(error, request, response, STATUS_CODE) {

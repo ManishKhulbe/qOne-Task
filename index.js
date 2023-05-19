@@ -13,7 +13,6 @@ dbConnection.connect().then((db) => {
     res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
     next();
   });
-  // app.use(passport.initialize());
   require("./routes/index")(app);
 
   app.listen(process.env.PORT || 3001, () => {

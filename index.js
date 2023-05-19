@@ -7,17 +7,19 @@ const {dbConnection} = require("./db/index");
 dbConnection.connect().then((db) => {
   const app = express();
   app.use(express.json());
-  app.use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  
+  app.options('/*', (_, res) => {
+    res.sendStatus(200);
+  });
+  app.use((request, response, next) => {
+    response.header("Access-Control-Allow-Origin", "*");
+    response.header('Access-Control-Allow-Credentials', true);
+    response.header("Access-Control-Allow-Headers", "*");
+    response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
     next();
   });
 
-  app.options("*", (req, res) => {
-    res.sendStatus(200);
-  });
-
+  //routes
   require("./routes/index")(app);
 
   app.listen(CONFIG.PORT || 3001, () => {

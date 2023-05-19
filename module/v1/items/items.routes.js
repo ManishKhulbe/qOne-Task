@@ -6,13 +6,14 @@ const resHndlr = require("../../../responseHandler");
 
 router.route("/addItem").post(itemsValidator.validateItem, function (req, res) {
   let { state, name } = req.body;
-  let { _id: userId } = req.user;
-
+  let { _id: userId,username } = req.user;
   itemsController
     .addItem({
       state,
       name,
       userId,
+      username,
+      createdAt : new Date()
     })
     .then(function (result) {
       resHndlr.sendSuccess(res, result, req);

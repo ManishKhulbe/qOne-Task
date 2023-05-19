@@ -5,5 +5,5 @@ module.exports = function (app) {
   // Attach V1 Routes
   app.use("/api/v1", v1Route);
   // Attach ErrorHandler to Handle All Errors
-  app.use(responseHandler.handleError);
+  app.use(responseHandler.handleInternalServerError);
 };

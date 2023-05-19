@@ -3,19 +3,23 @@ const exceptions = require("../../../customException");
 const responseHandler = require("../../../responseHandler");
 
 const validateLogIn = async (req, res, next) => {
-  const v = new Validator(req.body, {
-    username: "required|string",
-    password: "required",
-  });
+  try {
+    const v = new Validator(req.body, {
+      username: "required|string",
+      password: "required",
+    });
 
-  const matched = await v.check();
-  if (!matched) {
-    const errors = v.errors;
-    console.log("Validation errors:", errors);
-    validationError(req, res, errors, next);
+    const matched = await v.check();
+    if (!matched) {
+      const errors = v.errors;
+      validationError(req, res, errors, next);
+    }
+    next( )
+    return;
+  } catch (error) {
+    next(error);
     return;
   }
-  next();
 };
 
 const validationError = function (req, res, errors, next) {

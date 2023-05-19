@@ -1,48 +1,63 @@
+const customException = require("./customException");
+const APIResponse = require("./model/ApiResponse");
 
-const customException = require('./customException')
-const APIResponse = require('./model/ApiResponse');
-    
-const constant={
-    STATUS_CODE:{
-        SUCCESS:200,
-        ERROR:500
-    }
-}
-     
+const constant = {
+  STATUS_CODE: {
+    SUCCESS: 200,
+    ERROR: 500,
+  },
+};
 
-function _sendResponse(response, result,STATUS_CODE) {
-    if(STATUS_CODE){
-        return response.status(STATUS_CODE).send(result);
-    }
-    return response.send(result);
+function _sendResponse(response, result, STATUS_CODE) {
+  if (STATUS_CODE) {
+    return response.status(STATUS_CODE).send(result);
+  }
+  return response.send(result);
 }
 
-function sendError(response, error,request , STATUS_CODE = constant.STATUS_CODE.ERROR) {
-    
-    if (!error.errorCode) {
-        console.error(error, "Unhandled error.");
-        error = customException.internalServerErr(error);
-    }
-    var result = new APIResponse(STATUS_CODE, error,request);
-    _sendResponse(response, result ,STATUS_CODE);
+function sendError(
+  response,
+  error,
+  request,
+  STATUS_CODE = constant.STATUS_CODE.ERROR
+) {
+  if (!error.errorCode) {
+    console.error(error, "Unhandled error.");
+    error = customException.internalServerErr(error);
+  }
+  var result = new APIResponse(STATUS_CODE, error, request);
+  _sendResponse(response, result, STATUS_CODE);
 }
 
-function handleError(error, request, response, STATUS_CODE=constant.STATUS_CODE.ERROR) {
-    console.log(error,"error")
-    sendError(response, error,request , STATUS_CODE);
+function handleError(
+  error,
+  request,
+  response,
+  STATUS_CODE = constant.STATUS_CODE.ERROR
+) {
+  console.log(error, "error");
+  sendError(response, error, request, STATUS_CODE);
 }
 
-function sendSuccess(response, result,request , STATUS_CODE = constant.STATUS_CODE.SUCCESS ) {
-    var result = new APIResponse(STATUS_CODE, result,request); 
-    _sendResponse(response, result);
+function handleInternalServerError(error, request, response, next) {
+  sendError(response, error, request, 500);
 }
 
-
+function sendSuccess(
+  response,
+  result,
+  request,
+  STATUS_CODE = constant.STATUS_CODE.SUCCESS
+) {
+  var result = new APIResponse(STATUS_CODE, result, request);
+  _sendResponse(response, result);
+}
 
 // ========================== Export Module Start ==========================
 module.exports = {
-    sendError,
-    handleError,
-    sendSuccess
-}
+  sendError,
+  handleError,
+  sendSuccess,
+  handleInternalServerError
+};
 // ========================== Export Module End ============================

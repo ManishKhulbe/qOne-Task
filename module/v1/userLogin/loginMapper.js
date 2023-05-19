@@ -1,6 +1,9 @@
+const loginConstants = require('./loginConstant');
+const {RESPONSE_MESSAGE}= loginConstants.constants;
+
 function logInMapping(user, token) {
     var respObj = {
-        message: "You are logged in successfully",
+        message: RESPONSE_MESSAGE.LOGIN_SUCCESS,
         userId : user._id,
         username : user.username,
         accessToken : token

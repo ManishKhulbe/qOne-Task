@@ -12,8 +12,7 @@ router.route("/addItem").post(itemsValidator.validateItem, function (req, res) {
       state,
       name,
       userId,
-      username,
-      createdAt : new Date()
+      username
     })
     .then(function (result) {
       resHndlr.sendSuccess(res, result, req);

@@ -14,7 +14,9 @@ const addItem = async (params) => {
     let userObj={
       name:params.name,
       state:params.state,
-      itemAddedBy:params.userId
+      itemAddedByUsername:params.username,
+      userId:params.userId,
+      createdAt : new Date()
     }
     const addItem = await Item.save(userObj);
     if (!addItem) {

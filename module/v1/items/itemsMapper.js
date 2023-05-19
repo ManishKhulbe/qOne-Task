@@ -24,7 +24,7 @@ function editItemMapping(params){
 function deleteItemMapping(params){
     var respObj = {
         message: "Item Deleted Successfully",
-        item : params
+        item : params.value
         };
         return respObj;
 }

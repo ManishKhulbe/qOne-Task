@@ -18,6 +18,7 @@ function _sendResponse(response, result,STATUS_CODE) {
 }
 
 function sendError(response, error,request , STATUS_CODE = constant.STATUS_CODE.ERROR) {
+    
     if (!error.errorCode) {
         console.error(error, "Unhandled error.");
         error = customException.internalServerErr(error);
@@ -26,7 +27,8 @@ function sendError(response, error,request , STATUS_CODE = constant.STATUS_CODE.
     _sendResponse(response, result ,STATUS_CODE);
 }
 
-function handleError(error, request, response, STATUS_CODE) {
+function handleError(error, request, response, STATUS_CODE=constant.STATUS_CODE.ERROR) {
+    console.log(error,"error")
     sendError(response, error,request , STATUS_CODE);
 }
 

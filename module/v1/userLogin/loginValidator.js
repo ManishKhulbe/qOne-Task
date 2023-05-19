@@ -1,8 +1,9 @@
 const { Validator } = require("node-input-validator");
 const exceptions = require("../../../customException");
+const responseHandler = require("../../../responseHandler");
 
 const validateLogIn = async (req, res, next) => {
-    const v = new Validator(req.body, {
+  const v = new Validator(req.body, {
     username: "required|string",
     password: "required",
   });
@@ -11,17 +12,24 @@ const validateLogIn = async (req, res, next) => {
   if (!matched) {
     const errors = v.errors;
     console.log("Validation errors:", errors);
-    validationError(errors, next)
+    validationError(req, res, errors, next);
+    return;
   }
   next();
 };
 
-const  validationError = function (errors, next) {
+const validationError = function (req, res, errors, next) {
   if (errors && Object.keys(errors).length > 0) {
-    return next(exceptions.getCustomErrorException(errors));
+    responseHandler.sendError(
+      res,
+      exceptions.getCustomErrorException(errors),
+      req,
+      422
+    );
+    return;
   }
   next();
-}
+};
 
 module.exports = {
   validateLogIn,

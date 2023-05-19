@@ -5,6 +5,7 @@ const itemsMapper = require("./itemsMapper");
 const { ObjectId } = require("mongodb");
 
 const addItem = async (params) => {
+  console.log(params,"params")
   try {
     const itemExists = await Item.findOne({name:params.name})
     if(itemExists){

@@ -3,6 +3,14 @@ const customException = require("../../../customException");
 const itemsMapper = require("./itemsMapper");
 const { ObjectId } = require("mongodb");
 
+/*
+********** Add Item **********
+* @params {String} params.name
+* @params {String} params.state
+* @params {String} params.username
+* @params {String} params.userId
+* @returns {Object} item
+*/
 
 const addItem = async (params) => {
   console.log(params,"params")
@@ -28,6 +36,11 @@ const addItem = async (params) => {
   }
 };
 
+/*
+********** Get Item **********
+* @returns {Object} item
+*/
+
 const getItem = async () => {
     try {
       const itemExists = await Item.find({})
@@ -40,6 +53,13 @@ const getItem = async () => {
     }
   };
 
+
+/*
+********** Get Item By Id **********
+* @params {String} params.itemId
+* @returns {Object} item
+*/
+
 const getItemById= async (params) => {
     try {
       const itemExists = await Item.findOne({_id : new ObjectId(params.itemId)})
@@ -51,6 +71,14 @@ const getItemById= async (params) => {
       throw err;
     }
   };
+
+/*  
+********** Edit Item **********
+* @params {String} params.itemId
+* @params {String} params.name
+* @params {String} params.state
+* @returns {Object} item
+*/
 
 const editItem= async (params)=>{
   try {
@@ -80,6 +108,12 @@ const editItem= async (params)=>{
     throw err;
   }
 }
+
+/*
+********** Delete Item **********
+* @params {String} params.itemId
+* @returns {Object} item
+*/
 
 const deleteItem= async (params) => {
   try {

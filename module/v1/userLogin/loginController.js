@@ -10,6 +10,12 @@ const createJsonToken = (user) => {
   return token;
 }
 
+/*
+********** Login **********
+* @params {String} params.username
+* @params {String} params.password
+* @returns {Object} user
+*/
 const login = async (params) => {
   try {
 const user = await User.findOne({username: params.username });
